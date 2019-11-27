@@ -1,4 +1,3 @@
-from DBconnecting import *
 import pymysql
 
 def check_balance(value) :
@@ -55,4 +54,6 @@ def check_balance(value) :
                 print("비밀번호를 잘못 입력하셨습니다. 초기화면으로 돌아갑니다.")
                 print("----------------------------------------------------------------------------\n\n\n\n\n\n")
                 ing = False
+    cur.close()
+    conn.close()
 

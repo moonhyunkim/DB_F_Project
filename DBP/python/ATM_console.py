@@ -2,7 +2,8 @@ from menu_module1 import *
 from menu_module2 import *
 from menu_module3 import *
 from menu_module4 import *
-
+import time 
+from datetime import datetime
 online = True
 
 def check_input_error(value) :
@@ -12,7 +13,13 @@ def check_input_error(value) :
         return True
     return False
 
-
+now = datetime.now()
+print("ATM 작동 중 ... ")
+time.sleep(1)
+print("ATM 정보가져오는 중 ...")
+time.sleep(0.5)
+print("ATM 시작",'현재 시간 : %s-%s-%s-%s-%s\n' % ( now.year, now.month, now.day , now.hour, now.minute))
+time.sleep(1)
 
 while online :
     print("-----------------------------------A T M------------------------------------")
