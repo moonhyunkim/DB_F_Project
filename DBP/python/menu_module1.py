@@ -3,10 +3,10 @@ import time
 
 def check_balance(value) :
     ing = True
-    conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
+    conn = pymysql.connect(host='192.168.56.103', port=4567 ,user='project_user',password='Sjrnfl1!2!',db='ATMProject')
     cur = conn.cursor()
    
-    print("\n\n\n\n\n\n\n\n\n-------------------------------------잔액조회 메뉴------------------------------------")
+    print("\n\n\n\n\n\n\n\n\n\n-------------------------------------잔액조회 메뉴------------------------------------")
     retry_count = 0 
     while ing : 
         input_accountid = input('* 계좌번호를 입력해 주세요 : ')
