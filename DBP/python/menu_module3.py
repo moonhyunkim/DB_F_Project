@@ -6,7 +6,7 @@ def account_withdraw(value) :
     ing = True
     now = datetime.now()
 
-    conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
+    conn = pymysql.connect(host='192.168.56.103', port=4567 ,user='project_user',password='Sjrnfl1!2!',db='ATMProject')
     cur = conn.cursor()
     
     print("\n\n\n\n\n\n\n\n\n\n-------------------------------------계좌출금 메뉴------------------------------------")
@@ -130,7 +130,7 @@ def account_withdraw(value) :
                         res_ATM_balance = cur.fetchall()
                         
                         #거래기록 기재
-                        if another_bank : input_withdraw_amount -= 1000
+                        input_withdraw_amount -= 1000
                         sql_inset_trans = 'INSERT INTO TRANSACTION (trans_type, trans_amount, trans_balance, trans_account) VALUE (\'출금\',' + str(input_withdraw_amount)+','+str(res_updated_account_balance[0][0])+',\''+input_accountid+'\')'
                         cur.execute(sql_inset_trans)
                         
