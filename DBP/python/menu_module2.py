@@ -8,8 +8,8 @@ def account_deposit(value) :
 
     conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
     cur = conn.cursor()
-    
-    print("\n\n\n\n\n\n\n\n\n--------------------------------계좌입금 메뉴-------------------------------")
+
+    print("\n\n\n\n\n\n\n\n\n-------------------------------------계좌입금 메뉴------------------------------------")
     
     retry_count = 0 
     retry_count_int = 0
@@ -25,7 +25,7 @@ def account_deposit(value) :
         if not res_account : 
             retry_count += 1
             if retry_count >= 3 :
-                print("----------------------------------------------------------------------------")
+                print("--------------------------------------------------------------------------------------")
                 print(">>> 재시도 횟수 초과("+str(retry_count)+")  초기 화면으로 돌아갑니다")
                 print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
                 time.sleep(1)
@@ -34,7 +34,7 @@ def account_deposit(value) :
                 print('.', end='',flush = True)
                 time.sleep(1)
                 print('.')
-                print("----------------------------------------------------------------------------\n\n\n\n\n\n")
+                print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
                 retry_count = 0 
                 ing = False 
             else :
@@ -48,7 +48,7 @@ def account_deposit(value) :
                     input_deposit_amount = int(input("* 입금 하실 금액을 입력해 주세요 : "))
                 except ValueError :
                     if retry_count_int >= 3 :
-                        print("----------------------------------------------------------------------------")
+                        print("--------------------------------------------------------------------------------------")
                         print(">>> 재시도 횟수 초과("+str(retry_count_int)+")  초기 화면으로 돌아갑니다")
                         print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
                         time.sleep(1)
@@ -57,7 +57,7 @@ def account_deposit(value) :
                         print('.', end='',flush = True)
                         time.sleep(1)
                         print('.')
-                        print("----------------------------------------------------------------------------\n\n\n\n\n\n")
+                        print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
                         retry_count = 0 
                         ing = False
                         break 
@@ -79,7 +79,7 @@ def account_deposit(value) :
             try :
                 if res_account[0][1] != int(input_accountpw) : 
                     ing = False
-                    print("----------------------------------------------------------------------------")
+                    print("--------------------------------------------------------------------------------------")
                     print(">>> 비밀번호가 틀렸습니다 초기화면으로 돌아갑니다")
                     time.sleep(1)
                     print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
@@ -89,7 +89,7 @@ def account_deposit(value) :
                     print('.', end='',flush = True)
                     time.sleep(1)
                     print('.')
-                    print("----------------------------------------------------------------------------\n\n\n\n\n\n")
+                    print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
                 else : 
                     #예금 잔액 업데이트
                     sql_update_account_balance = 'UPDATE ACCOUNT SET account_balance = '+str(res_account[0][2])+'+'+str(input_deposit_amount)+' WHERE account_id = '+ "\'"+input_accountid+"\'"
@@ -125,7 +125,7 @@ def account_deposit(value) :
                     while True :
                         input_YN = input('* 거래 명세표를 출력하시겠습니까?(Y/N) :')
                         if input_YN == 'N' : 
-                            print("----------------------------------------------------------------------------")
+                            print("--------------------------------------------------------------------------------------")
                             print(">>> 입금 처리 되었습니다 초기화면으로 돌아갑니다")
                             time.sleep(1)
                             print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
@@ -135,13 +135,13 @@ def account_deposit(value) :
                             print('.', end='',flush = True)
                             time.sleep(1)
                             print('.')
-                            print("----------------------------------------------------------------------------\n\n\n\n\n")
+                            print("--------------------------------------------------------------------------------------\n\n\n\n\n")
                             break
                         elif input_YN != 'Y' and input_YN != 'N' :
                             print('alert) N/Y 만 입력이 가능합니다. 다시 입력해 주세요')
                             continue
                         elif input_YN =='Y' :
-                            print("----------------------------------------------------------------------------")
+                            print("--------------------------------------------------------------------------------------")
                             print('>>> 명세표 출력중', end='', flush = True)
                             time.sleep(1)
                             print('.', end='',flush = True)
@@ -154,19 +154,19 @@ def account_deposit(value) :
                             cur.execute(sql_receipt)
                             res_receipt = cur.fetchall()
                             
-                            print("--------------------------------명  세  표----------------------------------")
+                            print("-------------------------------------명  세  표---------------------------------------")
                             print("예   금   주 : ",res_receipt[0][0])
                             print("거 래  계 좌 : ",res_receipt[0][5])
                             print("거 래  일 자 : ",res_receipt[0][4])
                             print("거 래  유 형 : ",res_receipt[0][1])
                             print("입 금  금 액 : ",res_receipt[0][2])
                             print("거래 후 잔액 : ",res_receipt[0][3])
-                            print("----------------------------------------------------------------------------")
+                            print("--------------------------------------------------------------------------------------")
                             break
                     ing = False
             except ValueError : 
                 ing = False
-                print("----------------------------------------------------------------------------")
+                print("--------------------------------------------------------------------------------------")
                 print(">>> 비밀번호를 잘못 입력하셨습니다 초기화면으로 돌아갑니다")
                 time.sleep(1)
                 print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
@@ -176,6 +176,8 @@ def account_deposit(value) :
                 print('.', end='',flush = True)
                 time.sleep(1)
                 print('.')
-                print("----------------------------------------------------------------------------\n\n\n\n\n\n")
-                
+                print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
+    cur.close()
+    conn.close()
+          
 

@@ -3,11 +3,10 @@ import time
 
 def check_balance(value) :
     ing = True
-
     conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
     cur = conn.cursor()
-    
-    print("\n\n\n\n\n\n\n\n\n--------------------------------잔액조회 메뉴-------------------------------")
+   
+    print("\n\n\n\n\n\n\n\n\n-------------------------------------잔액조회 메뉴------------------------------------")
     retry_count = 0 
     while ing : 
         input_accountid = input('* 계좌번호를 입력해 주세요: ')
@@ -17,7 +16,7 @@ def check_balance(value) :
         if not res_accountid : 
             retry_count += 1
             if retry_count >= 3 :
-                print("----------------------------------------------------------------------------")
+                print("--------------------------------------------------------------------------------------")
                 print(">>> 재시도 횟수 초과("+str(retry_count)+")  초기 화면으로 돌아갑니다")
                 print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
                 time.sleep(1)
@@ -26,7 +25,7 @@ def check_balance(value) :
                 print('.', end='',flush = True)
                 time.sleep(1)
                 print('.')
-                print("----------------------------------------------------------------------------\n\n\n\n\n\n")
+                print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
                 retry_count = 0 
                 ing = False 
             else :
@@ -40,7 +39,7 @@ def check_balance(value) :
             try :
                 if res_accountpw[0][0] != int(input_accountpw) : 
                     ing = False
-                    print("----------------------------------------------------------------------------")
+                    print("--------------------------------------------------------------------------------------")
                     print(">>> 비밀번호가 틀렸습니다 초기화면으로 돌아갑니다")
                     time.sleep(1)
                     print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
@@ -61,7 +60,7 @@ def check_balance(value) :
                     sql_bankname = 'SELECT bank_name FROM BANK WHERE bank_id = '+ str(res_accountid[0][6])
                     cur.execute(sql_bankname)
                     res_bankname = cur.fetchall()
-                    print("----------------------------------------------------------------------------")
+                    print("--------------------------------------------------------------------------------------")
                     print('>>> 잔액조회 결과 출력중', end='', flush = True)
                     time.sleep(1)
                     print('.', end='',flush = True)
@@ -70,17 +69,17 @@ def check_balance(value) :
                     time.sleep(1)
                     print('.')
                     time.sleep(1)
-                    print("---------------------------------조회 결과----------------------------------")
+                    print("--------------------------------------조회 결과---------------------------------------")
                     print("예금  주 : ",res_username[0][0])
                     print("거래은행 : ",res_bankname[0][0])
                     print("예금종류 : ",res_accountid[0][3])
                     print("개설날짜 : ",res_accountid[0][4])
                     print("잔    액 : ",res_accountid[0][2])
-                    print("----------------------------------------------------------------------------\n")
+                    print("--------------------------------------------------------------------------------------\n")
                     ing = False
             except ValueError : 
                 ing = False
-                print("----------------------------------------------------------------------------")
+                print("--------------------------------------------------------------------------------------")
                 print(">>> 비밀번호를 잘못 입력하셨습니다 초기화면으로 돌아갑니다")
                 time.sleep(1)
                 print('>>> 초기화면으로 돌아가는 중', end='', flush = True)
@@ -90,7 +89,7 @@ def check_balance(value) :
                 print('.', end='',flush = True)
                 time.sleep(1)
                 print('.')
-                print("----------------------------------------------------------------------------\n\n\n\n\n\n")
+                print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
     cur.close()
     conn.close()
 
