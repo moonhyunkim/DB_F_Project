@@ -9,7 +9,7 @@ def account_deposit(value) :
     conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
     cur = conn.cursor()
 
-    print("\n\n\n\n\n\n\n\n\n-------------------------------------계좌입금 메뉴------------------------------------")
+    print("\n\n\n\n\n\n\n\n\n\n-------------------------------------계좌입금 메뉴------------------------------------")
     
     retry_count = 0 
     retry_count_int = 0
@@ -17,7 +17,7 @@ def account_deposit(value) :
     retry_count_YN = 0
     while ing : 
         #계좌 조회
-        input_accountid = input('* 계좌번호를 입력해 주세요: ')
+        input_accountid = input('* 계좌번호를 입력해 주세요 : ')
         sql_account = 'SELECT * FROM ACCOUNT WHERE account_id = '+ "\'"+input_accountid+"\'"
         cur.execute(sql_account)
         res_account = cur.fetchall()
@@ -142,7 +142,7 @@ def account_deposit(value) :
                             continue
                         elif input_YN =='Y' :
                             print("--------------------------------------------------------------------------------------")
-                            print('>>> 명세표 출력중', end='', flush = True)
+                            print('>>> 명세표 출력 중', end='', flush = True)
                             time.sleep(1)
                             print('.', end='',flush = True)
                             time.sleep(1)
@@ -159,7 +159,8 @@ def account_deposit(value) :
                             print("거 래  계 좌 : ",res_receipt[0][5])
                             print("거 래  일 자 : ",res_receipt[0][4])
                             print("거 래  유 형 : ",res_receipt[0][1])
-                            print("입 금  금 액 : ",res_receipt[0][2])
+                            print("거 래  금 액 : ",res_receipt[0][2])
+                            print("거래 전 잔액 : ",res_account[0][2])
                             print("거래 후 잔액 : ",res_receipt[0][3])
                             print("--------------------------------------------------------------------------------------")
                             break

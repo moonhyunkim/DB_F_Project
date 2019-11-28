@@ -1,12 +1,12 @@
 import pymysql
 import time
 
-def check_balance(value) :
+def check_trans_details(value) :
     ing = True
     conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
     cur = conn.cursor()
    
-    print("\n\n\n\n\n\n\n\n\n-------------------------------------잔액조회 메뉴------------------------------------")
+    print("\n\n\n\n\n\n\n\n\n\n-------------------------------------거래내역 조회------------------------------------")
     retry_count = 0 
     while ing : 
         input_accountid = input('* 계좌번호를 입력해 주세요 : ')
@@ -52,16 +52,12 @@ def check_balance(value) :
                     print("----------------------------------------------------------------------------\n\n\n\n\n\n")
                 else : 
                     #예금 주 SQL
-                    sql_username = 'SELECT user_name FROM USER WHERE user_id = '+ str(res_accountid[0][5])
-                    cur.execute(sql_username)
-                    res_username = cur.fetchall()
-                    
-                    #거래 은행 SQL 
-                    sql_bankname = 'SELECT bank_name FROM BANK WHERE bank_id = '+ str(res_accountid[0][6])
-                    cur.execute(sql_bankname)
-                    res_bankname = cur.fetchall()
+                    sql_trans_details = 'SELECT  user_name, operate_date, trans_type, trans_amount FROM OPERATE o, TRANSACTION t, USER u WHERE o.trans_id = t.trans_id and o.user_id = u.user_id and t.trans_account = \''+input_accountid+'\''
+                    cur.execute(sql_trans_details)
+                    res_trans_details = cur.fetchall()
+
                     print("--------------------------------------------------------------------------------------")
-                    print('>>> 잔액조회 결과 출력 중', end='', flush = True)
+                    print('>>> 거래내역 조회 결과 출력 중', end='', flush = True)
                     time.sleep(1)
                     print('.', end='',flush = True)
                     time.sleep(1)
@@ -70,12 +66,14 @@ def check_balance(value) :
                     print('.')
                     time.sleep(1)
                     print("--------------------------------------조회 결과---------------------------------------")
-                    print("예금  주 : ",res_username[0][0])
-                    print("거래은행 : ",res_bankname[0][0])
-                    print("예금종류 : ",res_accountid[0][3])
-                    print("개설날짜 : ",res_accountid[0][4])
-                    print("잔    액 : ",res_accountid[0][2])
-                    print("--------------------------------------------------------------------------------------\n")
+                    print("\t번호\t예금주\t\t거래일자\t\t\t거래유형\t거래금액")
+                    print("--------------------------------------------------------------------------------------")
+                    for i in range(0, len(res_trans_details)) :
+                        print('\t',i+1,'\t',end ='')
+                        for j in range(0, len(res_trans_details[0])) :
+                            print (res_trans_details[i][j],'\t\t',end ='')
+                        print()
+                    print("--------------------------------------------------------------------------------------\n\n\n\n")
                     ing = False
             except ValueError : 
                 ing = False

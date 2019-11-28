@@ -9,12 +9,12 @@ def check_ATM_status(value) :
     conn = pymysql.connect(host='localhost', port=3306, user='root', password ='sjrnfl12', db='ATMProject')
     cur = conn.cursor()
     
-    print("\n\n\n\n\n\n\n\n\n-------------------------------------ATM 정보 조회------------------------------------")
+    print("\n\n\n\n\n\n\n\n\n\n-------------------------------------ATM 정보 조회------------------------------------")
     retry_count = 0 
     retry_count_int = 0
     while ing : 
         #관리자 조회
-        input_name = input('* 관리자 이름을 입력해 주세요: ')
+        input_name = input('* 관리자 이름을 입력해 주세요 : ')
         sql_account = 'SELECT user_authority FROM USER WHERE user_name = '+ "\'"+input_name+"\'"
         cur.execute(sql_account)
         res_account = cur.fetchall()
@@ -58,7 +58,7 @@ def check_ATM_status(value) :
                     print("--------------------------------------------------------------------------------------\n\n\n\n\n\n")
                 else :
                     print("--------------------------------------------------------------------------------------")
-                    print('>>> ATM 정보 출력중', end='', flush = True)
+                    print('>>> ATM 정보 출력 중', end='', flush = True)
                     time.sleep(1)
                     print('.', end='',flush = True)
                     time.sleep(1)
